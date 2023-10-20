@@ -55,12 +55,17 @@ public class Libro extends Catalogo{
 //                ", genere='" + genere + '\'' +
 //                '}';
 //    }
+
+
     @Override
     public String toString() {
         return "Libro{" +
-                super.toString() +
                 "autore='" + autore + '\'' +
                 ", genere='" + genere + '\'' +
-                "} ";
+                ", isbn=" + isbn +
+                ", titolo='" + titolo + '\'' +
+                ", anno_pubblicazione=" + anno_pubblicazione +
+                ", numero_pagine=" + numero_pagine +
+                '}';
     }
 }

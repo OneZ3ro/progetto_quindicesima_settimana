@@ -4,16 +4,18 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "cataloghi")
 public abstract class Catalogo {
     @Id
-    private BigInteger isbn;
-    private String titolo;
-    private int anno_pubblicazione;
-    private long numero_pagine;
+    @GeneratedValue
+    protected long isbn;
+    protected String titolo;
+    protected int anno_pubblicazione;
+    protected long numero_pagine;
 
     @OneToOne(mappedBy = "elemento_prestato")
     private Prestito prestito;
@@ -21,26 +23,12 @@ public abstract class Catalogo {
     public Catalogo(){};
 
     public Catalogo(String titolo, int anno_pubblicazione, long numero_pagine) {
-        Random rndm = new Random();
-        String c1 = String.valueOf(rndm.nextInt(0, 10));
-        String c2 = String.valueOf(rndm.nextInt(0, 10));
-        String c3 = String.valueOf(rndm.nextInt(0, 10));
-        String c4 = String.valueOf(rndm.nextInt(0, 10));
-        String c5 = String.valueOf(rndm.nextInt(0, 10));
-        String c6 = String.valueOf(rndm.nextInt(0, 10));
-        String c7 = String.valueOf(rndm.nextInt(0, 10));
-        String c8 = String.valueOf(rndm.nextInt(0, 10));
-        String c9 = String.valueOf(rndm.nextInt(0, 10));
-        String c10 = String.valueOf(rndm.nextInt(0, 10));
-        String c11 = String.valueOf(rndm.nextInt(0, 10));
-        String c12 = String.valueOf(rndm.nextInt(0, 10));
-        this.isbn = new BigInteger("9" + c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9 + c10 + c11 + c12);
         this.titolo = titolo;
         this.anno_pubblicazione = anno_pubblicazione;
         this.numero_pagine = numero_pagine;
     }
 
-    public BigInteger getIsbn() {
+    public long getIsbn() {
         return isbn;
     }
 
@@ -48,12 +36,16 @@ public abstract class Catalogo {
         return titolo;
     }
 
-    public int getAnnoPubblicazione() {
+    public int getAnno_pubblicazione() {
         return anno_pubblicazione;
     }
 
-    public long getNumeroPagine() {
+    public long getNumero_pagine() {
         return numero_pagine;
+    }
+
+    public Prestito getPrestito() {
+        return prestito;
     }
 
     @Override

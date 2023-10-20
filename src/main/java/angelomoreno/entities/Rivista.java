@@ -53,11 +53,15 @@ public class Rivista extends Catalogo{
 //                ", periodicity=" + periodicity +
 //                '}';
 //    }
+
     @Override
     public String toString() {
         return "Rivista{" +
-                super.toString() +
-                "periodicity='" + periodicity +
-                "} ";
+                "periodicity=" + periodicity +
+                ", isbn=" + isbn +
+                ", titolo='" + titolo + '\'' +
+                ", anno_pubblicazione=" + anno_pubblicazione +
+                ", numero_pagine=" + numero_pagine +
+                '}';
     }
 }
