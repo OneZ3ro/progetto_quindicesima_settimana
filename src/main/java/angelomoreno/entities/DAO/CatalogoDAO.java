@@ -74,7 +74,7 @@ public class CatalogoDAO {
     }
 
     public List<Catalogo> getCatalogoByAutore(String autore) {
-        TypedQuery<Catalogo> getCatalogoByAutoreQuery = em.createQuery("SELECT c FROM Catalogo c WHERE c.autore IN (SELECT l.autore FROM Libro l WHERE LOWER(l.autore) LIKE LOWER(CONCAT(:autore, '%')))", Catalogo.class);
+        TypedQuery<Catalogo> getCatalogoByAutoreQuery = em.createQuery("SELECT c FROM Catalogo c WHERE LOWER(c.autore) LIKE LOWER(CONCAT(:autore, '%'))", Catalogo.class);
         getCatalogoByAutoreQuery.setParameter("autore", autore);
         return getCatalogoByAutoreQuery.getResultList();
     }
