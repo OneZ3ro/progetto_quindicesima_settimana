@@ -10,15 +10,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("progetto_quindicesima_settimana");
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
+        Scanner input = new Scanner(System.in);
 
         try {
             CatalogoDAO cd = new CatalogoDAO(em);
@@ -28,25 +26,59 @@ public class Application {
 
 //            creaUtenti(ud, faker);
 //            creaArchivioEPrestiti(ud, cd, pd, faker);
-
-            System.out.println("-------------------------------- GET CATALOGO BY ISBN --------------------------------");
-            cd.getCatalogoByIsbn(110).forEach(System.out::println);
-            System.out.println("-------------------------------- GET CATALOGO ANNO PUBBLICAZIONE --------------------------------");
-            cd.getCatalogoByAnnoPubblicazione(2018).forEach(System.out::println);
-            System.out.println("-------------------------------- GET CATALOGO BY AUTORE --------------------------------");
-            cd.getCatalogoByAutore("Dr.").forEach(catalogo -> System.out.println(catalogo));
-            System.out.println("-------------------------------- GET CATALOGO BY TITLE --------------------------------");
-            cd.getCatalogoByTitolo("The W").forEach(catalogo -> System.out.println(catalogo));
-            System.out.println("-------------------------------- GET PRESTITI BY NUMERO DI TESSERA --------------------------------");
-            pd.getPrestitoByNumeroUser(50).forEach(prestito -> System.out.println(prestito));
-            System.out.println("-------------------------------- GET PRESTITI SCADUTI --------------------------------");
-            pd.getPrestitiScaduti().forEach(prestito -> System.out.println(prestito));
-
+            myLoop:
+            while(true) {
+                try {
+                    System.out.println("Cosa vuoi fare?");
+                    System.out.println("[1]: GET CATALOGO BY ISBN");
+                    System.out.println("[2]: GET CATALOGO ANNO PUBBLICAZIONE");
+                    System.out.println("[3]: GET CATALOGO BY AUTORE");
+                    System.out.println("[4]: GET CATALOGO BY TITLE");
+                    System.out.println("[5]: GET PRESTITI BY NUMERO DI TESSERA");
+                    System.out.println("[6]: GET PRESTITI SCADUTI");
+                    System.out.println("[0]: TERMINA PROGRAMMA");
+                    int choose = Integer.parseInt(input.nextLine());
+                    switch (choose) {
+                        case 1:
+                            System.out.println("-------------------------------- GET CATALOGO BY ISBN --------------------------------");
+                            cd.getCatalogoByIsbn(110).forEach(System.out::println);
+                            break;
+                        case 2:
+                            System.out.println("-------------------------------- GET CATALOGO ANNO PUBBLICAZIONE --------------------------------");
+                            cd.getCatalogoByAnnoPubblicazione(2018).forEach(System.out::println);
+                            break;
+                        case 3:
+                            System.out.println("-------------------------------- GET CATALOGO BY AUTORE --------------------------------");
+                            cd.getCatalogoByAutore("Dr.").forEach(catalogo -> System.out.println(catalogo));
+                            break;
+                        case 4:
+                            System.out.println("-------------------------------- GET CATALOGO BY TITLE --------------------------------");
+                            cd.getCatalogoByTitolo("The W").forEach(catalogo -> System.out.println(catalogo));
+                            break;
+                        case 5:
+                            System.out.println("-------------------------------- GET PRESTITI BY NUMERO DI TESSERA --------------------------------");
+                            pd.getPrestitoByNumeroUser(50).forEach(prestito -> System.out.println(prestito));
+                            break;
+                        case 6:
+                            System.out.println("-------------------------------- GET PRESTITI SCADUTI --------------------------------");
+                            pd.getPrestitiScaduti().forEach(prestito -> System.out.println(prestito));
+                            break;
+                        case 0:
+                            System.out.println("PROGRAMMA TERMINATO CON SUCCESSO");
+                            break myLoop;
+                        default:
+                            throw new NumberFormatException();
+                    }
+                } catch (NumberFormatException numberFormatException) {
+                    System.err.println("Non hai scelto una delle possibili scelte. Riprova");
+                }
+            }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         } finally {
             em.close();
             emf.close();
+            input.close();
         }
     }
 
