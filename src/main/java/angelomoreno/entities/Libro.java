@@ -44,17 +44,6 @@ public class Libro extends Catalogo{
     public String getGenere() {
         return genere;
     }
-//    @Override
-//    public String toString() {
-//        return "Libro{" +
-//                "isbn=" + isbn +
-//                ", titolo='" + titolo + '\'' +
-//                ", anno_pubblicazione=" + anno_pubblicazione +
-//                ", numero_pagine=" + numero_pagine +
-//                ", autore='" + autore + '\'' +
-//                ", genere='" + genere + '\'' +
-//                '}';
-//    }
     @Override
     public String toString() {
         return "Libro{" +

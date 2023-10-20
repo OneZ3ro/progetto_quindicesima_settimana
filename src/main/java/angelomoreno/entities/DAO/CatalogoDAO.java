@@ -74,10 +74,7 @@ public class CatalogoDAO {
     }
 
     public List<Catalogo> getCatalogoByAutore(String autore) {
-        //SELECT * FROM cataloghi JOIN libri USING(isbn)  WHERE autore = 'Dr. Levi Mitchell'
-        //SELECT * FROM cataloghi JOIN libri ON cataloghi.isbn = libri.isbn  WHERE autore = 'Dr. Levi Mitchell'
-//      Query getCatalogoByAutoreQuery = em.createNativeQuery("SELECT * FROM cataloghi JOIN libri ON cataloghi.isbn = libri.isbn  WHERE autore = 'Dr. Levi Mitchell'", Catalogo.class);
-        TypedQuery<Catalogo> getCatalogoByAutoreQuery = em.createQuery("SELECT c FROM Catalogo c WHERE c.autore IN (SELECT l.autore FROM Libro l WHERE l.autore = :autore)", Catalogo.class);
+        TypedQuery<Catalogo> getCatalogoByAutoreQuery = em.createQuery("SELECT c FROM Catalogo c WHERE c.autore IN (SELECT l.autore FROM Libro l WHERE LOWER(l.autore) LIKE LOWER(CONCAT(:autore, '%')))", Catalogo.class);
         getCatalogoByAutoreQuery.setParameter("autore", autore);
         return getCatalogoByAutoreQuery.getResultList();
     }
@@ -87,5 +84,7 @@ public class CatalogoDAO {
         getCatalogoByTitoloQuery.setParameter("titolo", titolo);
         return getCatalogoByTitoloQuery.getResultList();
     }
+
+
 
 }

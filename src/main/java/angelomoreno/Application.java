@@ -29,14 +29,18 @@ public class Application {
 //            creaUtenti(ud, faker);
 //            creaArchivioEPrestiti(ud, cd, pd, faker);
 
-            System.out.println("-------------------------------- GET BY ISBN --------------------------------");
-            cd.getCatalogoByIsbn(46).forEach(System.out::println);
-            System.out.println("-------------------------------- GET ANNO PUBBLICAZIONE --------------------------------");
+            System.out.println("-------------------------------- GET CATALOGO BY ISBN --------------------------------");
+            cd.getCatalogoByIsbn(110).forEach(System.out::println);
+            System.out.println("-------------------------------- GET CATALOGO ANNO PUBBLICAZIONE --------------------------------");
             cd.getCatalogoByAnnoPubblicazione(2018).forEach(System.out::println);
-            System.out.println("-------------------------------- GET BY AUTORE --------------------------------");
-            cd.getCatalogoByAutore("Camie Collier").forEach(catalogo -> System.out.println(catalogo));
-            System.out.println("-------------------------------- GET BY TITLE --------------------------------");
-            cd.getCatalogoByTitolo("The").forEach(catalogo -> System.out.println(catalogo));
+            System.out.println("-------------------------------- GET CATALOGO BY AUTORE --------------------------------");
+            cd.getCatalogoByAutore("Dr.").forEach(catalogo -> System.out.println(catalogo));
+            System.out.println("-------------------------------- GET CATALOGO BY TITLE --------------------------------");
+            cd.getCatalogoByTitolo("The W").forEach(catalogo -> System.out.println(catalogo));
+            System.out.println("-------------------------------- GET PRESTITI BY NUMERO DI TESSERA --------------------------------");
+            pd.getPrestitoByNumeroUser(50).forEach(prestito -> System.out.println(prestito));
+            System.out.println("-------------------------------- GET PRESTITI SCADUTI --------------------------------");
+            pd.getPrestitiScaduti().forEach(prestito -> System.out.println(prestito));
 
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
@@ -47,7 +51,7 @@ public class Application {
     }
 
     public static void creaUtenti(UtenteDAO ud, Faker faker) {
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 100; i++) {
             Utente utente = new Utente(faker.funnyName().name(), faker.funnyName().name(), faker.date().birthday());
             ud.save(utente);
         }
@@ -55,7 +59,7 @@ public class Application {
 
     public static void creaArchivioEPrestiti(UtenteDAO ud, CatalogoDAO cd, PrestitoDAO pd, Faker faker){
         Random rndm = new Random();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 200; i++) {
             int n = rndm.nextInt(0, 100);
             if (n%2==0) {
                 Catalogo libro = new Libro(faker.book().title(), rndm.nextInt(1980, 2024), rndm.nextLong(20, 1001), faker.book().author(), faker.book().genre());
@@ -64,12 +68,9 @@ public class Application {
                 Catalogo rivista = new Rivista(faker.book().title(), rndm.nextInt(1980, 2024), rndm.nextLong(20, 1001), n%5==0 ? Periodicity.SETTIMANALE : (n%3==0 ? Periodicity.MENSILE : Periodicity.SEMESTRALE));
                 cd.save(rivista);
             }
-        }
-
-        for (int i = 0; i < cd.getAllCataloghi().size(); i++) {
             LocalDate oggi = LocalDate.now();
             LocalDate randomday = oggi.minusDays(rndm.nextInt(0, 40));
-            Prestito prestito = new Prestito(ud.getAllUtenti().get(i), cd.getAllCataloghi().get(rndm.nextInt(0, cd.getAllCataloghi().size())), randomday, i%2==0 ? randomday.plusDays(rndm.nextLong(10, 20)) : randomday);
+            Prestito prestito = new Prestito(ud.getAllUtenti().get(rndm.nextInt(0, ud.getAllUtenti().size())), cd.getAllCataloghi().get(rndm.nextInt(0, cd.getAllCataloghi().size())), randomday, n%3==0 ? randomday.plusDays(rndm.nextLong(50, 100)) : (n%2==0 ? null : randomday));
             pd.save(prestito);
         }
     }
