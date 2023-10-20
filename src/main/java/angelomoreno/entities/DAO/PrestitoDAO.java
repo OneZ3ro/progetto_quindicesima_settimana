@@ -54,7 +54,7 @@ public class PrestitoDAO {
     }
 
     public List<Prestito> getPrestitoByNumeroUser(UUID numero_di_tessera) {
-        TypedQuery<Prestito> getPrestitoByNumeroUserQuery = em.createQuery("SELECT p FROM Prestito p WHERE p.utente.numero_di_tessera = :numero_di_tessera", Prestito.class);
+        TypedQuery<Prestito> getPrestitoByNumeroUserQuery = em.createQuery("SELECT p FROM Prestito p WHERE p.utente.numero_di_tessera = :numero_di_tessera AND (data_restituzione_prevista > p.data_restituzione_effettiva OR p.data_restituzione_effettiva = null)", Prestito.class);
         getPrestitoByNumeroUserQuery.setParameter("numero_di_tessera", numero_di_tessera);
         return getPrestitoByNumeroUserQuery.getResultList();
     }
