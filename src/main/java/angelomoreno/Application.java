@@ -32,7 +32,7 @@ public class Application {
                     System.out.println("Cosa vuoi fare?");
                     System.out.println("[1]: GET CATALOGO BY ISBN");
                     System.out.println("[2]: GET CATALOGO ANNO PUBBLICAZIONE");
-                    System.out.println("[3]: GET CATALOGO BY AUTORE");
+                    System.out.println("[3]: GET LIBRO BY AUTORE");
                     System.out.println("[4]: GET CATALOGO BY TITLE");
                     System.out.println("[5]: GET PRESTITI BY NUMERO DI TESSERA");
                     System.out.println("[6]: GET PRESTITI SCADUTI");
@@ -40,24 +40,34 @@ public class Application {
                     int choose = Integer.parseInt(input.nextLine());
                     switch (choose) {
                         case 1:
+                            System.out.println("Inserisci l'ISBN del tuo libro/rivista");
+                            int isbn = Integer.parseInt(input.nextLine());
                             System.out.println("-------------------------------- GET CATALOGO BY ISBN --------------------------------");
-                            cd.getCatalogoByIsbn(110).forEach(System.out::println);
+                            cd.getCatalogoByIsbn(isbn).forEach(System.out::println);
                             break;
                         case 2:
+                            System.out.println("Inserisci l'anno del libro/rivista che stai cercando");
+                            int anno = Integer.parseInt(input.nextLine());
                             System.out.println("-------------------------------- GET CATALOGO ANNO PUBBLICAZIONE --------------------------------");
-                            cd.getCatalogoByAnnoPubblicazione(2018).forEach(System.out::println);
+                            cd.getCatalogoByAnnoPubblicazione(anno).forEach(System.out::println);
                             break;
                         case 3:
-                            System.out.println("-------------------------------- GET CATALOGO BY AUTORE --------------------------------");
-                            cd.getCatalogoByAutore("Dr.").forEach(catalogo -> System.out.println(catalogo));
+                            System.out.println("Inserisci il nome (o parte del nome) dell'autore del libro");
+                            String autore = input.nextLine();
+                            System.out.println("-------------------------------- GET LIBRO BY AUTORE --------------------------------");
+                            cd.getCatalogoByAutore(autore).forEach(catalogo -> System.out.println(catalogo));
                             break;
                         case 4:
+                            System.out.println("Inserisci il titolo (o parte del titolo) del tuo libro/rivista");
+                            String titolo = input.nextLine();
                             System.out.println("-------------------------------- GET CATALOGO BY TITLE --------------------------------");
-                            cd.getCatalogoByTitolo("The W").forEach(catalogo -> System.out.println(catalogo));
+                            cd.getCatalogoByTitolo(titolo).forEach(catalogo -> System.out.println(catalogo));
                             break;
                         case 5:
+                            System.out.println("Inserisci il tuo numero di tessera");
+                            int numero_tessera = Integer.parseInt(input.nextLine());
                             System.out.println("-------------------------------- GET PRESTITI BY NUMERO DI TESSERA --------------------------------");
-                            pd.getPrestitoByNumeroUser(50).forEach(prestito -> System.out.println(prestito));
+                            pd.getPrestitoByNumeroUser(numero_tessera).forEach(prestito -> System.out.println(prestito));
                             break;
                         case 6:
                             System.out.println("-------------------------------- GET PRESTITI SCADUTI --------------------------------");
