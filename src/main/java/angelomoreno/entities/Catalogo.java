@@ -12,7 +12,7 @@ import java.util.UUID;
 public abstract class Catalogo {
     @Id
     @GeneratedValue
-    protected long isbn;
+    protected UUID isbn;
     protected String titolo;
     protected int anno_pubblicazione;
     protected long numero_pagine;
@@ -28,7 +28,7 @@ public abstract class Catalogo {
         this.numero_pagine = numero_pagine;
     }
 
-    public long getIsbn() {
+    public UUID getIsbn() {
         return isbn;
     }
 

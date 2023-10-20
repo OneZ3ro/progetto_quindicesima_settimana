@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.UUID;
 
 public class UtenteDAO {
     private final EntityManager em;
@@ -21,11 +22,11 @@ public class UtenteDAO {
         System.out.println("Nuovo utente creato correttamente");
     }
 
-    public Utente getById(long id) {
+    public Utente getById(UUID id) {
         return em.find(Utente.class, id);
     }
 
-    public void delete(long id) {
+    public void delete(UUID id) {
         Utente found = em.find(Utente.class, id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
@@ -38,7 +39,7 @@ public class UtenteDAO {
         }
     }
 
-    public void refresh(long id) {
+    public void refresh(UUID id) {
         Utente found = em.find(Utente.class, id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();

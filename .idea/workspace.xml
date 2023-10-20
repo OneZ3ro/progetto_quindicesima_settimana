@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="19dd2b84-5e87-4015-b78c-f1ef04633f70" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Catalogo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Catalogo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/DAO/CatalogoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/DAO/CatalogoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/DAO/PrestitoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/DAO/PrestitoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/DAO/UtenteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/DAO/UtenteDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Prestito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Prestito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Utente.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

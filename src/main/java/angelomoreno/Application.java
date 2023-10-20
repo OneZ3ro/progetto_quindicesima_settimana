@@ -38,10 +38,11 @@ public class Application {
                     System.out.println("[6]: GET PRESTITI SCADUTI");
                     System.out.println("[0]: TERMINA PROGRAMMA");
                     int choose = Integer.parseInt(input.nextLine());
+
                     switch (choose) {
                         case 1:
                             System.out.println("Inserisci l'ISBN del tuo libro/rivista");
-                            int isbn = Integer.parseInt(input.nextLine());
+                            UUID isbn = UUID.fromString(input.nextLine());
                             System.out.println("-------------------------------- GET CATALOGO BY ISBN --------------------------------");
                             cd.getCatalogoByIsbn(isbn).forEach(System.out::println);
                             break;
@@ -65,7 +66,7 @@ public class Application {
                             break;
                         case 5:
                             System.out.println("Inserisci il tuo numero di tessera");
-                            int numero_tessera = Integer.parseInt(input.nextLine());
+                            UUID numero_tessera = UUID.fromString(input.nextLine());
                             System.out.println("-------------------------------- GET PRESTITI BY NUMERO DI TESSERA --------------------------------");
                             pd.getPrestitoByNumeroUser(numero_tessera).forEach(prestito -> System.out.println(prestito));
                             break;

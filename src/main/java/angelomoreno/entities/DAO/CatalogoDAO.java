@@ -26,11 +26,11 @@ public class CatalogoDAO {
         System.out.println("Nuovo catalogo creato correttamente");
     }
 
-    public Catalogo getById(long id) {
+    public Catalogo getById(UUID id) {
         return em.find(Catalogo.class, id);
     }
 
-    public void delete(long id) {
+    public void delete(UUID id) {
         Catalogo found = em.find(Catalogo.class, id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
@@ -43,7 +43,7 @@ public class CatalogoDAO {
         }
     }
 
-    public void refresh(long id) {
+    public void refresh(UUID id) {
         Catalogo found = em.find(Catalogo.class, id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
@@ -61,7 +61,7 @@ public class CatalogoDAO {
         return getAllCataloghiQuery.getResultList();
     }
 
-    public List<Catalogo> getCatalogoByIsbn(long isbn) {
+    public List<Catalogo> getCatalogoByIsbn(UUID isbn) {
         TypedQuery<Catalogo> getCatalogoByIsbnQuery = em.createQuery("SELECT c FROM Catalogo c WHERE c.isbn = :isbn", Catalogo.class);
         getCatalogoByIsbnQuery.setParameter("isbn", isbn);
         return getCatalogoByIsbnQuery.getResultList();

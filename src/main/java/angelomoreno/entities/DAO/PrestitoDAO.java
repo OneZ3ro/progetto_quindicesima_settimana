@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.UUID;
 
 public class PrestitoDAO {
     private final EntityManager em;
@@ -22,11 +23,11 @@ public class PrestitoDAO {
         System.out.println("Nuovo prestito creato correttamente");
     }
 
-    public Prestito getById(long id) {
+    public Prestito getById(UUID id) {
         return em.find(Prestito.class, id);
     }
 
-    public void delete(long id) {
+    public void delete(UUID id) {
         Prestito found = em.find(Prestito.class, id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
@@ -39,7 +40,7 @@ public class PrestitoDAO {
         }
     }
 
-    public void refresh(long id) {
+    public void refresh(UUID id) {
         Prestito found = em.find(Prestito.class, id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
@@ -52,7 +53,7 @@ public class PrestitoDAO {
         }
     }
 
-    public List<Prestito> getPrestitoByNumeroUser(long numero_di_tessera) {
+    public List<Prestito> getPrestitoByNumeroUser(UUID numero_di_tessera) {
         TypedQuery<Prestito> getPrestitoByNumeroUserQuery = em.createQuery("SELECT p FROM Prestito p WHERE p.utente.numero_di_tessera IN (SELECT u FROM Utente u WHERE u.numero_di_tessera = :numero_di_tessera)", Prestito.class);
         getPrestitoByNumeroUserQuery.setParameter("numero_di_tessera", numero_di_tessera);
         return getPrestitoByNumeroUserQuery.getResultList();

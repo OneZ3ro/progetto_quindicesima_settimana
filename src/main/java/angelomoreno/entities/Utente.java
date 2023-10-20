@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @Entity
 @Table(name = "utenti")
 public class Utente {
     @Id
     @GeneratedValue
-    private long numero_di_tessera;
+    private UUID numero_di_tessera;
     private String nome;
     private String cognome;
     private Date data_di_nascita;
@@ -50,7 +51,7 @@ public class Utente {
         this.data_di_nascita = data_di_nascita;
     }
 
-    public long getNumero_di_tessera() {
+    public UUID getNumero_di_tessera() {
         return numero_di_tessera;
     }
 

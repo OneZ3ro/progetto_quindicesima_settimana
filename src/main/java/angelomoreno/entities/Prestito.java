@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Prestito {
     @Id
     @GeneratedValue
-    private long prestito_id;
+    private UUID prestito_id;
     @ManyToOne
     @JoinColumn(name = "utente", nullable = false)
     private Utente utente;
@@ -61,7 +61,7 @@ public class Prestito {
         return elemento_prestato;
     }
 
-    public long getPrestito_id() {
+    public UUID getPrestito_id() {
         return prestito_id;
     }
 
