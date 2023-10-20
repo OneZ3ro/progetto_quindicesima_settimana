@@ -11,6 +11,7 @@ import javax.persistence.Persistence;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -28,9 +29,14 @@ public class Application {
 //            creaUtenti(ud, faker);
 //            creaArchivioEPrestiti(ud, cd, pd, faker);
 
-            cd.getCatalogoByIsbn(35).forEach(catalogo -> System.out.println(catalogo));
-
-            cd.getCatalogoByAnnoPubblicazione(2014).forEach(catalogo -> System.out.println(catalogo));
+            System.out.println("-------------------------------- GET BY ISBN --------------------------------");
+            cd.getCatalogoByIsbn(46).forEach(System.out::println);
+            System.out.println("-------------------------------- GET ANNO PUBBLICAZIONE --------------------------------");
+            cd.getCatalogoByAnnoPubblicazione(2018).forEach(System.out::println);
+            System.out.println("-------------------------------- GET BY AUTORE --------------------------------");
+            cd.getCatalogoByAutore("Camie Collier").forEach(catalogo -> System.out.println(catalogo));
+            System.out.println("-------------------------------- GET BY TITLE --------------------------------");
+            cd.getCatalogoByTitolo("The").forEach(catalogo -> System.out.println(catalogo));
 
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
@@ -58,12 +64,12 @@ public class Application {
                 Catalogo rivista = new Rivista(faker.book().title(), rndm.nextInt(1980, 2024), rndm.nextLong(20, 1001), n%5==0 ? Periodicity.SETTIMANALE : (n%3==0 ? Periodicity.MENSILE : Periodicity.SEMESTRALE));
                 cd.save(rivista);
             }
+        }
+
+        for (int i = 0; i < cd.getAllCataloghi().size(); i++) {
             LocalDate oggi = LocalDate.now();
-            int oggi_anno = oggi.getYear();
-            int oggi_mese = oggi.getMonthValue();
-            int oggi_giorno = oggi.getDayOfMonth();
-            int anno_cas = rndm.nextInt(0, 11) + oggi_anno;
-            Prestito prestito = new Prestito(ud.getAllUtenti().get(rndm.nextInt(0, ud.getAllUtenti().size())), cd.getAllCataloghi().get(rndm.nextInt(0, cd.getAllCataloghi().size())), oggi, faker.date().between(new Date(oggi_anno, oggi_mese, oggi_giorno), new Date(anno_cas, oggi_mese, oggi_giorno)));
+            LocalDate randomday = oggi.minusDays(rndm.nextInt(0, 40));
+            Prestito prestito = new Prestito(ud.getAllUtenti().get(i), cd.getAllCataloghi().get(rndm.nextInt(0, cd.getAllCataloghi().size())), randomday, i%2==0 ? randomday.plusDays(rndm.nextLong(10, 20)) : randomday);
             pd.save(prestito);
         }
     }

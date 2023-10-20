@@ -55,8 +55,6 @@ public class Libro extends Catalogo{
 //                ", genere='" + genere + '\'' +
 //                '}';
 //    }
-
-
     @Override
     public String toString() {
         return "Libro{" +

@@ -1,10 +1,12 @@
 package angelomoreno.entities.DAO;
 
 import angelomoreno.entities.Catalogo;
+import angelomoreno.entities.Libro;
 import angelomoreno.entities.Utente;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 import java.util.List;
@@ -60,9 +62,9 @@ public class CatalogoDAO {
     }
 
     public List<Catalogo> getCatalogoByIsbn(long isbn) {
-        TypedQuery<Catalogo> getConcertiInStreamingQuery = em.createQuery("SELECT c FROM Catalogo c WHERE c.isbn = :isbn", Catalogo.class);
-        getConcertiInStreamingQuery.setParameter("isbn", isbn);
-        return getConcertiInStreamingQuery.getResultList();
+        TypedQuery<Catalogo> getCatalogoByIsbnQuery = em.createQuery("SELECT c FROM Catalogo c WHERE c.isbn = :isbn", Catalogo.class);
+        getCatalogoByIsbnQuery.setParameter("isbn", isbn);
+        return getCatalogoByIsbnQuery.getResultList();
     }
 
     public List<Catalogo> getCatalogoByAnnoPubblicazione(int anno_pubblicazione) {
@@ -72,22 +74,18 @@ public class CatalogoDAO {
     }
 
     public List<Catalogo> getCatalogoByAutore(String autore) {
-        TypedQuery<Catalogo> getCatalogoByAutoreQuery = em.createQuery("SELECT c FROM Catalogo c WHERE c.autore = :autore", Catalogo.class);
+        //SELECT * FROM cataloghi JOIN libri USING(isbn)  WHERE autore = 'Dr. Levi Mitchell'
+        //SELECT * FROM cataloghi JOIN libri ON cataloghi.isbn = libri.isbn  WHERE autore = 'Dr. Levi Mitchell'
+//      Query getCatalogoByAutoreQuery = em.createNativeQuery("SELECT * FROM cataloghi JOIN libri ON cataloghi.isbn = libri.isbn  WHERE autore = 'Dr. Levi Mitchell'", Catalogo.class);
+        TypedQuery<Catalogo> getCatalogoByAutoreQuery = em.createQuery("SELECT c FROM Catalogo c WHERE c.autore IN (SELECT l.autore FROM Libro l WHERE l.autore = :autore)", Catalogo.class);
         getCatalogoByAutoreQuery.setParameter("autore", autore);
         return getCatalogoByAutoreQuery.getResultList();
     }
 
     public List<Catalogo> getCatalogoByTitolo(String titolo) {
-        TypedQuery<Catalogo> getCatalogoByTitoloQuery = em.createQuery("SELECT c FROM Catalogo c WHERE LOWER(c.autore) LIKE LOWER(CONCAT('%', :titolo, '%'))", Catalogo.class);
+        TypedQuery<Catalogo> getCatalogoByTitoloQuery = em.createQuery("SELECT c FROM Catalogo c WHERE LOWER(c.titolo) LIKE LOWER(CONCAT('%', :titolo, '%'))", Catalogo.class);
         getCatalogoByTitoloQuery.setParameter("titolo", titolo);
         return getCatalogoByTitoloQuery.getResultList();
     }
 
-//    public List<PartitaDiCalcio> getPartiteVinteInCasa() {
-//        return em.createQuery("SELECT p FROM PartitaDiCalcio p WHERE p.squadraDiCasa = p.squadraVincente", PartitaDiCalcio.class).getResultList();
-//    }
-//
-//    public List<PartitaDiCalcio> getPartiteVinteInTrasferta() {
-//        return em.createQuery("SELECT p FROM PartitaDiCalcio p WHERE p.squadraOspite = p.squadraVincente", PartitaDiCalcio.class).getResultList();
-//    }
 }

@@ -12,20 +12,20 @@ public class Prestito {
     @GeneratedValue
     private long prestito_id;
     @ManyToOne
-    @JoinColumn(name = "numero_di_tessera", nullable = false)
+    @JoinColumn(name = "utente", nullable = false)
     private Utente utente;
 
-    @OneToOne
-    @JoinColumn(name = "isbn_libro_prestato")
+    @ManyToOne
+    @JoinColumn(name = "isbn_libro_prestato", nullable = false)
     private Catalogo elemento_prestato;
 
     private LocalDate data_inizio_prestito;
     private LocalDate data_restituzione_prevista;
-    private Date data_restituzione_effettiva;
+    private LocalDate data_restituzione_effettiva;
 
     public Prestito(){};
 
-    public Prestito(Utente utente, Catalogo elemento_prestato, LocalDate data_inizio_prestito, Date data_restituzione_effettiva) {
+    public Prestito(Utente utente, Catalogo elemento_prestato, LocalDate data_inizio_prestito, LocalDate data_restituzione_effettiva) {
         this.utente = utente;
         this.elemento_prestato = elemento_prestato;
         this.data_inizio_prestito = data_inizio_prestito;
@@ -45,11 +45,11 @@ public class Prestito {
         return data_restituzione_prevista;
     }
 
-    public Date getData_restituzione_effettiva() {
+    public LocalDate getData_restituzione_effettiva() {
         return data_restituzione_effettiva;
     }
 
-    public void setData_restituzione_effettiva(Date data_restituzione_effettiva) {
+    public void setData_restituzione_effettiva(LocalDate data_restituzione_effettiva) {
         this.data_restituzione_effettiva = data_restituzione_effettiva;
     }
 

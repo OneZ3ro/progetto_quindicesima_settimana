@@ -17,8 +17,8 @@ public abstract class Catalogo {
     protected int anno_pubblicazione;
     protected long numero_pagine;
 
-    @OneToOne(mappedBy = "elemento_prestato")
-    private Prestito prestito;
+    @OneToMany(mappedBy = "elemento_prestato")
+    private List<Prestito> prestiti;
 
     public Catalogo(){};
 
@@ -44,16 +44,18 @@ public abstract class Catalogo {
         return numero_pagine;
     }
 
-    public Prestito getPrestito() {
-        return prestito;
+    public List<Prestito> getPrestito() {
+        return prestiti;
     }
 
     @Override
     public String toString() {
-        return  "isbn=" + isbn +
+        return "Catalogo{" +
+                "isbn=" + isbn +
                 ", titolo='" + titolo + '\'' +
                 ", anno_pubblicazione=" + anno_pubblicazione +
                 ", numero_pagine=" + numero_pagine +
-                ", prestito=" + prestito;
+                ", prestito=" + prestiti +
+                '}';
     }
 }
